@@ -1,11 +1,12 @@
 
+const express = require('express');
+const TelegramBot = require('node-telegram-bot-api');
+const bodyParser = require('body-parser');
+//env
+const dotenv = require('dotenv');
+dotenv.config();
 
 const TOKEN = process.env.BOT_TOKEN || 'YOUR_TELEGRAM_BOT_TOKEN';
-
-import express from 'express';
-import TelegramBot from 'node-telegram-bot-api';
-import bodyParser from 'body-parser';
-
 const app = express()
 
 const bot = new TelegramBot(TOKEN);
@@ -15,26 +16,26 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post(`/tagAllBot`, (req, res) => {
-  console.log('Doing Start.... req.body: ', req.body);
+  console.log('Doing Start....');
   bot.processUpdate(req.body);
-  res.sendStatus(200);
+
+  // Only for API Testing. Do not use in production because it will cause no response from Telegram
+  // res.sendStatus(200);
 }
 );
 
 bot.onText(/\/start/, async (msg) => {
-
-  console.log('do start: ', msg);
-
-  const chatId = msg?.chat?.id;
-  const message = `Hello ${msg?.from?.first_name}!`;
-  bot.sendMessage(chatId, message);
+  console.log('do start command...');
+  
+  const chatId = msg.chat.id;
+  const message = `Hello ${msg.from.first_name}!`;
+  bot.sendMessage(598850829, message);
 });
 
 // Just to ping!
 bot.onText(/\/tagall/, async (msg) => {
   const chatId = msg?.chat?.id;
 
-  //console.log('do tag all: ', chatId);
   try {
       // Get members admins of group
       const members = await bot.getChatAdministrators(chatId);
@@ -70,14 +71,14 @@ bot.onText(/\/dizz/, async (msg) => {
 
 // Send random cute cat photo when user send /cat
 bot.onText(/\/cat/, async (msg) => {
-  const chatId = msg?.chat?.id;
+  const chatId = msg.chat.id;
   const randomCatPhoto = 'https://cataas.com/cat/hello';
   bot.sendPhoto(chatId, randomCatPhoto);
 });
 
 // Send Ricardo Milos GiF when user send /ricardo
 bot.onText(/\/ricardo/, async (msg) => {
-  const chatId = msg?.chat?.id;
+  const chatId = msg.chat.id;
   const ricardoMilosGif = 'https://tenor.com/5Mdo.gif';
   bot.sendDocument(chatId, ricardoMilosGif);
 });
@@ -91,4 +92,4 @@ const userMentionBuilder = (user) => {
   }
 }
 
-export default app;
+module.exports = app;

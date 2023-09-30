@@ -1,15 +1,12 @@
-service: tagAllBotWebhook
+service: tag-bot-telegram-web
 provider:
   name: aws
   runtime: nodejs18.x
   stage: dev
-  region: ap-southeast-1
+  region: eu-west-2
 
 functions:
   tagAllBot:
     handler: index.handler
     events:
       - httpApi: 'POST /tagAllBot'
-
-plugins:
-  - serverless-offline
