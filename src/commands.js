@@ -3,13 +3,9 @@ export default {
     regex: /\/start/,
     desc: "Start",
   },
-  tagall: {
-    regex: /\/tagall/,
-    desc: "Tag all users in group",
-  },
-  dizz: {
-    regex: /\/dizz/,
-    desc: "Dizz Mon Leo",
+  all: {
+    regex: /\/all/,
+    desc: "Tag all users in group with message",
   },
   cat: {
     regex: /\/cat/,
@@ -18,5 +14,17 @@ export default {
   ricardo: {
     regex: /\/ricardo/,
     desc: "Send Ricardo Milos GiF",
+  },
+  dizz: {
+    regex: /\/dizz/,
+    desc: "Dizz Mon Leo",
+  },
+  shutup: {
+    regex: /\/shutup/,
+    desc: "Shut up",
+  },
+  help: {
+    regex: /\/help/,
+    desc: "Show all commands",
   },
 };

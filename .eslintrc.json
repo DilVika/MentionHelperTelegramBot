@@ -12,6 +12,7 @@
         "sourceType": "module"
     },
     "rules": {
+        "camelcase": "warn",
         "prettier/prettier": [
             "error"
         ]
