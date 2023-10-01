@@ -8,5 +8,6 @@ provider:
 functions:
   tagAllBot:
     handler: index.handler
+    architecture: arm64
     events:
       - httpApi: 'POST /tagAllBot'
