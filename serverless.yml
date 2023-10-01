@@ -4,6 +4,7 @@ provider:
   runtime: nodejs18.x
   stage: dev
   region: eu-west-2
+  # timeout: 60
 
 functions:
   tagAllBot:
@@ -11,3 +12,6 @@ functions:
     architecture: arm64
     events:
       - httpApi: 'POST /tagAllBot'
+
+plugins:
+  - serverless-offline
