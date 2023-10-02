@@ -14,7 +14,10 @@
     "rules": {
         "camelcase": "warn",
         "prettier/prettier": [
-            "error"
+            "error",
+            {
+                "endOfLine": "auto"
+            }
         ]
     },
     "plugins": [

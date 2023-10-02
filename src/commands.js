@@ -19,10 +19,6 @@ export default {
     regex: /\/dizz/,
     desc: "Dizz Mon Leo",
   },
-  shutup: {
-    regex: /\/shutup/,
-    desc: "Shut up",
-  },
   help: {
     regex: /\/help/,
     desc: "Show all commands",
