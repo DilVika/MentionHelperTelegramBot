@@ -12,6 +12,7 @@ import { sendCatPicHandler } from "./handlers/sendCatPicHandler.js";
 import { sendRicardoGifHandler } from "./handlers/sendRicardoGifHandler.js";
 import { tagAllHandler } from "./handlers/tagAllHandler.js";
 import { startCmdHandler } from "./handlers/startCmdHandler.js";
+import { removeTrackingHandler } from "./handlers/removeTrackingHandler.js";
 
 const bot = new TelegramBot(TOKEN);
 
@@ -41,6 +42,11 @@ bot.onText(commands.dizz.regex, async (msg) =>
 
 bot.onText(commands.help.regex, async (msg) =>
   commandHandler(msg, bot, helpHandler),
+);
+
+// /remove tracking link
+bot.onText(commands.link.regex, async (msg) =>
+  commandHandler(msg, bot, removeTrackingHandler),
 );
 
 export default bot;

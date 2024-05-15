@@ -1,0 +1,58 @@
+/* eslint-disable capitalized-comments */
+import { NO_MSG_CONTENT } from "../constants.js";
+import { userMentionBuilder } from "../helpers/userContentBuilder.js";
+import { TidyURL } from "tidy-url";
+
+export const removeTrackingHandler = async (msg, bot) => {
+  const chatId = msg?.chat?.id;
+
+  const rawMessageContent = msg?.text?.split(" ").slice(1).join(" ");
+  const messageContent = rawMessageContent || NO_MSG_CONTENT;
+
+  try {
+    // Get members admins of group
+    // console.log("Message content: ", messageContent);
+    const botInfo = await bot.getMe();
+    const adminMembers = await bot.getChatAdministrators(chatId);
+
+    let isURL = false;
+    let cleanedLink = null;
+    try {
+      cleanedLink = removeTrackingParameters(messageContent);
+    } catch (_) {
+      isURL = false;
+    }
+
+    const doBotCanDeleteMessage = adminMembers.some(
+      (member) => member?.user?.id === botInfo?.id,
+    );
+
+    if (isURL && cleanedLink) {
+      // Get tagger
+      const tagger = userMentionBuilder(msg.from);
+      await bot.sendMessage(
+        chatId,
+        `I will send the cleaned link for ${tagger} now`,
+        { parse_mode: "MarkdownV2" },
+      );
+      await bot.sendMessage(chatId, cleanedLink, { parse_mode: "HTML" });
+
+      if (doBotCanDeleteMessage) {
+        await bot.deleteMessage(chatId, msg.message_id.toString());
+      }
+    } else {
+      await bot.sendMessage(chatId, "No link to send u chewpid", {
+        parse_mode: "MarkdownV2",
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    await bot.sendMessage(chatId, "I have some issues now");
+  }
+};
+
+const removeTrackingParameters = (url) => {
+  const cleaned = TidyURL.clean(url);
+  // console.log("cleaned: ", cleaned);
+  return cleaned?.url;
+};

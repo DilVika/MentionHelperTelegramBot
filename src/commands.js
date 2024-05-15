@@ -23,4 +23,8 @@ export default {
     regex: /\/help/,
     desc: "Show all commands",
   },
+  link: {
+    regex: /\/link/,
+    desc: "Remove tracking link",
+  },
 };
