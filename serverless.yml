@@ -1,17 +1,73 @@
+# ./serverless.yml
 service: tag-bot-telegram-web
 provider:
   name: aws
   runtime: nodejs18.x
-  stage: dev
   region: eu-west-2
-  # timeout: 60
+  # stage: ${opt:stage}
+  stage: dev
+  # timeout: 30   # repository wide Lambda timeout
+  environment:  # repository wide Lambda env variables
+    STAGE: ${self:provider.stage}
+
+custom:
+  customVariable1: Hello, World!
+  isLocal: ${opt:stage, 'dev'} == 'local'
+
+
+  # For serverless-dynamodb-local plugin
+  dynamodb:
+  # If you only want to use DynamoDB Local in some stages, declare them here
+    stages:
+      - dev
+    start:
+      docker: true
+      port: 8000
+      inMemory: true
+      migrate: true
+      seed: true
+      convertEmptyValues: true
+      help: true
+    # Uncomment only if you already have a DynamoDB running locally
+    # noStart: true
 
 functions:
+  # Serverless Framework specific syntax
   tagAllBot:
-    handler: index.handler
+    handler: ./src/lambda.handler
     architecture: arm64
     events:
       - httpApi: 'POST /tagAllBot'
+    environment:
+      CUSTOM_VAR: ${self:custom.customVariable1}
 
 plugins:
-  - serverless-offline
+  - serverless-esbuild # used for compiling/packaging the Typescript code
+  - serverless-dotenv-plugin
+
+  - serverless-dynamodb
+
+
+  - serverless-offline # used for local execution
+
+# Dynamo lcally
+# resources:
+#   Resources:
+#     UserTopicGroup:
+#       Condition: ${self:custom.isLocal}
+#       Type: AWS::DynamoDB::Table
+#       Properties:
+#         TableName: UserTopicGroup
+#         AttributeDefinitions:
+#           - AttributeName: GroupID
+#             AttributeType: S
+#           - AttributeName: TopicID#UserID
+#             AttributeType: S
+#         KeySchema:
+#           - AttributeName: GroupID
+#             KeyType: HASH
+#           - AttributeName: TopicID#UserID
+#             KeyType: RANGE
+#         ProvisionedThroughput:
+#           ReadCapacityUnits: 5
+#           WriteCapacityUnits: 5

@@ -1,22 +1,40 @@
 {
-  "type": "module",
-  "dependencies": {
-    "@vendia/serverless-express": "^4.10.4",
-    "body-parser": "^1.20.2",
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "node-telegram-bot-api": "^0.63.0",
-    "serverless-http": "^3.2.0",
-    "tidy-url": "^1.16.2"
-  },
+  "name": "tele-mention-bot",
+  "packageManager": "yarn@4.5.1",
+  "version": "1.0.0",
+  "description": "A minimal example of Node 18 + TypeScript 5.1 + Serverless Framework + AWS",
   "scripts": {
-    "start": "sls offline start"
+    "start": "serverless offline -o 127.0.0.1 --stage ${STAGE:-dev}",
+    "deploy": "NODE_ENV=production sls deploy",
+    "debug": "sls offline -o 127.0.0.1 --inspect",
+    "test": "glob -c \"node --loader tsx --test\" \"./src/**/*.test.ts\"",
+    "lint": "eslint --ext .ts --fix ."
   },
   "devDependencies": {
-    "eslint": "^8.50.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-config-xo": "^0.43.1",
-    "eslint-plugin-prettier": "^5.0.0",
-    "serverless-offline": "^13.1.2"
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.13.0",
+    "@types/aws-lambda": "^8.10.119",
+    "@types/node": "^18.0.0",
+    "@types/node-telegram-bot-api": "^0",
+    "esbuild": "^0.17.19",
+    "eslint": "^9.13.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "glob": "^10.3.3",
+    "globals": "^15.11.0",
+    "prettier": "^3.3.3",
+    "serverless": "^3.34.0",
+    "serverless-dotenv-plugin": "^6.0.0",
+    "serverless-dynamodb": "^0.2.54",
+    "serverless-esbuild": "^1.54.4",
+    "serverless-offline": "^12.0.4",
+    "smee-client": "^2.0.4",
+    "tsx": "^3.12.7",
+    "typescript": "^5.1.6",
+    "typescript-eslint": "^8.11.0"
+  },
+  "dependencies": {
+    "node-telegram-bot-api": "^0.66.0",
+    "tidy-url": "^1.18.3"
   }
 }
