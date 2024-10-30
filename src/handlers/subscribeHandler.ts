@@ -32,7 +32,7 @@ export const subscribeHandler = async ({ message, bot }: CmdHandlerProps) => {
     await bot.sendMessage(
       groupId,
       // eslint-disable-next-line no-useless-escape
-      `Current available Topics in this group are: \>${topicsList.join(', ')}`,
+      `Current available Topics in this group are:\n\n\>☞ ${topicsList.join('\n\>☞ ')}`,
       {
         parse_mode: 'MarkdownV2',
       },
