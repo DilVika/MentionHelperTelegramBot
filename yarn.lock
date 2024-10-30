@@ -8400,6 +8400,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"serverless-prune-plugin@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "serverless-prune-plugin@npm:2.1.0"
+  dependencies:
+    bluebird: "npm:^3.7.2"
+  peerDependencies:
+    serverless: 1.x || 2.x || 3.x || 4.x
+  checksum: 10c0/ed91b6734818586878e640f14eccdc7eef0b0fa9b91bf03281495e00bb435a35c75c918f5341496e06178391a1ae1c4c22d6996b1c0bae661591162979f42730
+  languageName: node
+  linkType: hard
+
 "serverless@npm:^3.34.0":
   version: 3.39.0
   resolution: "serverless@npm:3.39.0"
@@ -9030,6 +9041,7 @@ __metadata:
     serverless-dynamodb: "npm:^0.2.54"
     serverless-esbuild: "npm:^1.54.4"
     serverless-offline: "npm:^12.0.4"
+    serverless-prune-plugin: "npm:^2.1.0"
     smee-client: "npm:^2.0.4"
     tidy-url: "npm:^1.18.3"
     tsx: "npm:^3.12.7"

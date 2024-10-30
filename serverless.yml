@@ -20,6 +20,10 @@ custom:
     watch:
       pattern: 
         - 'src/**/*.ts'
+  
+  prune:
+    automatic: true
+    number: 3
 
 
   # For serverless-dynamodb-local plugin
@@ -58,6 +62,8 @@ plugins:
 
 
   - serverless-offline # used for local execution
+
+  - serverless-prune-plugin # used for removing old versions from the lambda storage
 
 # Dynamo lcally
 # resources:

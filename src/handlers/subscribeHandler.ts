@@ -31,7 +31,7 @@ export const subscribeHandler = async ({ message, bot }: CmdHandlerProps) => {
     )
     await bot.sendMessage(
       groupId,
-      // eslint-disable-next-line no-useless-escape
+      // eslint-disable-next-line no-useless-escape, prettier/prettier
       `Current available Topics in this group are:\n\n\>☞ ${topicsList.join('\n\>☞ ')}`,
       {
         parse_mode: 'MarkdownV2',
