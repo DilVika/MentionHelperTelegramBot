@@ -1,8 +1,9 @@
 # Mention Helper Telegram Bot
 
 ## Overview
+Very Quick way to mention all users in a group or by a topic.
 
-This project is a Telegram bot built using Node.js, TypeScript, and the Serverless Framework. It is designed to help manage mentions in Telegram groups.
+This bot is built with Node.js and TypeScript using the Serverless Framework for deployment on AWS. It uses DynamoDB for data storage.
 
 ## Features
 
@@ -41,9 +42,9 @@ Run ESLint with `yarn lint`
 
 ## References
 
-- [Telegram Bot API](https://core.telegram.org/bots/api)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Node-Telegram-Bot-API](https://github.com/yagop/node-telegram-bot-api)
 - [Serverless Framework](https://www.serverless.com/)
 - [Serverless Offline](https://www.serverless.com/plugins/serverless-offline)
+- [Telegram Bot API](https://core.telegram.org/bots/api)
 - [DynamoDB](https://aws.amazon.com/dynamodb/)
-- [Node-Telegram-Bot-API](https://github.com/yagop/node-telegram-bot-api)
-- [TypeScript](https://www.typescriptlang.org/)
