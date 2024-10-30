@@ -12,7 +12,6 @@ export const handler: Handler = async (
 ): Promise<APIGatewayProxyStructuredResultV2> => {
   const request = event.body ?? ''
   const parsedData = JSON.parse(request)
-  // console.log('Processing update with', parsedData)
 
   const botWrapper = initBot()
   const bot = await botWrapper.start()
