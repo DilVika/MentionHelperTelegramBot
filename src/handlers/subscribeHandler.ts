@@ -26,13 +26,14 @@ export const subscribeHandler = async ({ message, bot }: CmdHandlerProps) => {
     const subscriptions = await DynamoDB.getAllSubscriptions({
       groupId,
     })
+
     const topicsList = Array.from(
       new Set(subscriptions.map((sub) => sub.topicId)),
     )
     await bot.sendMessage(
       groupId,
       // eslint-disable-next-line no-useless-escape, prettier/prettier
-      `Current available Topics in this group are:\n\n\>☞ ${topicsList.join('\n\>☞ ')}`,
+      `Current available Topics in this group are:\n\n\>☞ ${topicsList.join('\n>☞ ')}`,
       {
         parse_mode: 'MarkdownV2',
       },

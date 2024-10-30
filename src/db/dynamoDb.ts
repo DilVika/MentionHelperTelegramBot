@@ -7,7 +7,7 @@ import {
   DynamoDBUserTopicSubscription,
   UserTopicSubscription,
 } from '../types/types'
-import { parseDynamoDBItem, uniqueSubscriptions } from './parsers'
+import { parseDynamoDBItem } from './parsers'
 
 const dynamoDbIntance = DynamoDBDocument.from(
   new dynamoDb({
@@ -97,10 +97,8 @@ const getAllSubscriptions = async ({
   try {
     const data = await dynamoDbIntance.query(params)
     return (
-      uniqueSubscriptions(
-        (data.Items as DynamoDBUserTopicSubscription[])?.map((item) =>
-          parseDynamoDBItem(item),
-        ),
+      (data.Items as DynamoDBUserTopicSubscription[])?.map((item) =>
+        parseDynamoDBItem(item),
       ) || []
     )
   } catch (error) {

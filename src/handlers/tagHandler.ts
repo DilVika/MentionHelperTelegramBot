@@ -4,6 +4,7 @@ import {
   SINGLE_SPACE_STR,
 } from '../configs/constants.js'
 import DynamoDB from '../db/dynamoDb.js'
+import { uniqueSubscriptions } from '../db/parsers.js'
 import { userMentionBuilderById } from '../helpers/userContentBuilder.js'
 import { CmdHandlerProps, UserTopicSubscription } from '../types/types.js'
 
@@ -19,9 +20,11 @@ export const tagHandler = async ({ message, bot }: CmdHandlerProps) => {
     .filter((topic) => topic)
 
   if ((topics?.length ?? 0) == 0 || (topics?.length ?? 0) > 1) {
-    tagList = await DynamoDB.getAllSubscriptions({
-      groupId: chatId.toString(),
-    })
+    tagList = uniqueSubscriptions(
+      await DynamoDB.getAllSubscriptions({
+        groupId: chatId.toString(),
+      }),
+    )
   } else {
     tagList = await DynamoDB.getSubscriptionsByTopic({
       groupId: chatId.toString(),
