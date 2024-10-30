@@ -7,20 +7,13 @@ provider:
   # stage: ${opt:stage}
   stage: dev
   # disable when deploying to production
-  # timeout: 30   # repository wide Lambda timeout
+  # timeout: 60   # repository wide Lambda timeout
   environment:  # repository wide Lambda env variables
     STAGE: ${self:provider.stage}
     # This, too, can be disabled when deploying to production. Enable it for debugging.
     # NODE_OPTIONS: "--enable-source-maps"
 
 custom:
-  customVariable1: Hello, World!
-  esbuild:
-    sourcemap: true 
-    watch:
-      pattern: 
-        - 'src/**/*.ts'
-  
   prune:
     automatic: true
     number: 3
@@ -51,11 +44,8 @@ functions:
     architecture: arm64
     events:
       - httpApi: 'POST /tagAllBot'
-    environment:
-      CUSTOM_VAR: ${self:custom.customVariable1}
 
 plugins:
-  - serverless-esbuild # used for compiling/packaging the Typescript code
   - serverless-dotenv-plugin
 
   - serverless-dynamodb
