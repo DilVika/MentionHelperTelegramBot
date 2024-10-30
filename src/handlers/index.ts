@@ -1,7 +1,7 @@
 import { dizzHandler } from './dizzHandler'
 import { helpHandler } from './helpHandler'
 import { sendCatPicHandler } from './sendCatPicHandler'
-import { tagAllHandler } from './tagAllHandler'
+import { tagHandler } from './tagHandler'
 import { startCmdHandler } from './startCmdHandler'
 import { sendRicardoGifHandler } from './sendRicardoGifHandler'
 //TODO
@@ -13,7 +13,7 @@ export {
   helpHandler,
   sendCatPicHandler,
   sendRicardoGifHandler,
-  tagAllHandler,
+  tagHandler,
   startCmdHandler,
   //TODO
   // removeTrackingHandler,

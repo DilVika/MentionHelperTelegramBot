@@ -3,7 +3,10 @@
 import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb'
 import { DynamoDB as dynamoDb } from '@aws-sdk/client-dynamodb'
 import { DEFAULT_TOPIC_NAME, DYNAMODB_TABLE } from '../configs/constants'
-import { DynamoDBUserTopicSubscription, UserTopicSubscription } from '../types'
+import {
+  DynamoDBUserTopicSubscription,
+  UserTopicSubscription,
+} from '../types/types'
 import { parseDynamoDBItem } from './parsers'
 
 const dynamoDbIntance = DynamoDBDocument.from(
@@ -36,9 +39,6 @@ const putSubscription = async ({
       UserName: userName,
       Timestamp: new Date().toISOString(),
     },
-    // Condition only if the item does not exist in the current group
-    // ConditionExpression:
-    //   'attribute_not_exists(GroupID) OR attribute_not_exists(TopicID#UserID)',
   }
 
   try {
@@ -54,22 +54,30 @@ const getSubscriptionsByTopic = async ({
 }: {
   groupId: string
   topicName?: string
-}) => {
+}): Promise<UserTopicSubscription[]> => {
   const params = {
     TableName: DYNAMODB_TABLE,
     KeyConditionExpression:
-      'GroupID = :groupID AND begins_with(TopicID#UserID, :topicID)',
+      'GroupID = :groupId AND begins_with(#TopicUserID, :topicId)',
+    ExpressionAttributeNames: {
+      '#TopicUserID': 'TopicID#UserID', // Alias for 'TopicID#UserID'
+    },
     ExpressionAttributeValues: {
       ':groupId': groupId,
-      ':topicID': topicName,
+      ':topicId': topicName,
     },
   }
 
   try {
     const data = await dynamoDbIntance.query(params)
-    return data.Items
+    return (
+      (data.Items as DynamoDBUserTopicSubscription[])?.map((item) =>
+        parseDynamoDBItem(item),
+      ) || []
+    )
   } catch (error) {
     console.error('Error reading db: ', error)
+    return []
   }
 }
 
