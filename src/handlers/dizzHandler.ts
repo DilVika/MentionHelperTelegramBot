@@ -1,6 +1,6 @@
 import { CHILL_STICKER_FILE_ID } from '../configs/constants'
 import { userMentionBuilder } from '../helpers/userContentBuilder'
-import { CmdHandlerProps } from '../types'
+import { CmdHandlerProps } from '../types/types'
 
 export const dizzHandler = async ({ message: msg, bot }: CmdHandlerProps) => {
   const chatId = msg.chat.id

@@ -1,4 +1,7 @@
-import { DynamoDBUserTopicSubscription, UserTopicSubscription } from '../types'
+import {
+  DynamoDBUserTopicSubscription,
+  UserTopicSubscription,
+} from '../types/types'
 
 export const parseDynamoDBItem = (
   item: DynamoDBUserTopicSubscription,
@@ -12,4 +15,14 @@ export const parseDynamoDBItem = (
     userName: item.UserName,
     subscribedAt: new Date(item.Timestamp),
   }
+}
+
+export const uniqueSubscriptions = (items: UserTopicSubscription[]) => {
+  const uniqueSubs = new Map<string, UserTopicSubscription>()
+
+  items.forEach((item) => {
+    uniqueSubs.set(item.userId, item)
+  })
+
+  return Array.from(uniqueSubs.values())
 }

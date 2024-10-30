@@ -18,3 +18,8 @@ export const WRONG_CHAT_TYPE_MSG =
 export const REJECT_USER_ID = -1
 export const DYNAMODB_TABLE = 'UserTopicGroup'
 export const DEFAULT_TOPIC_NAME = 'general'
+
+// Regex
+export const DUPLICATE_SPACE_REGEX = /\s\s+/g
+export const SINGLE_SPACE_STR = ' '
+export const ANY_COMMAND_REGEX = /\/\S+/

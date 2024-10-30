@@ -6,30 +6,39 @@ provider:
   region: eu-west-2
   # stage: ${opt:stage}
   stage: dev
+  # disable when deploying to production
   # timeout: 30   # repository wide Lambda timeout
   environment:  # repository wide Lambda env variables
     STAGE: ${self:provider.stage}
+    # This, too, can be disabled when deploying to production. Enable it for debugging.
+    # NODE_OPTIONS: "--enable-source-maps"
 
 custom:
   customVariable1: Hello, World!
-  isLocal: ${opt:stage, 'dev'} == 'local'
+  esbuild:
+    sourcemap: true 
+    watch:
+      pattern: 
+        - 'src/**/*.ts'
 
 
   # For serverless-dynamodb-local plugin
-  dynamodb:
+  serverless-dynamodb:
   # If you only want to use DynamoDB Local in some stages, declare them here
     stages:
       - dev
     start:
       docker: true
       port: 8000
-      inMemory: true
+      dbPath: '/'
+      sharedDb: false
+      inMemory: false
       migrate: true
       seed: true
       convertEmptyValues: true
-      help: true
+      # help: true
     # Uncomment only if you already have a DynamoDB running locally
-    # noStart: true
+      noStart: true
 
 functions:
   # Serverless Framework specific syntax
@@ -52,9 +61,14 @@ plugins:
 
 # Dynamo lcally
 # resources:
+#   Conditions:
+#         IsDev:
+#           Fn::Equals:
+#             - ${opt:stage}
+#             - dev  
 #   Resources:
 #     UserTopicGroup:
-#       Condition: ${self:custom.isLocal}
+#       Condition: IsDev
 #       Type: AWS::DynamoDB::Table
 #       Properties:
 #         TableName: UserTopicGroup

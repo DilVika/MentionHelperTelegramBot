@@ -6,7 +6,7 @@ import TelegramBot from 'node-telegram-bot-api'
 import commands from './configs/commands'
 import { commandHandler } from './handlers/handler'
 import {
-  tagAllHandler,
+  tagHandler,
   subscribeHandler,
   sendCatPicHandler,
   sendRicardoGifHandler,
@@ -36,8 +36,8 @@ export default () => {
 
     // /all with message
     bot.onText(
-      commands.all.regex,
-      promisify(commands.all, bot, commandHandler, tagAllHandler),
+      commands.tag.regex,
+      promisify(commands.tag, bot, commandHandler, tagHandler),
     )
 
     // Subscribe to all messages

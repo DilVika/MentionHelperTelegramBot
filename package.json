@@ -5,7 +5,7 @@
   "description": "A minimal example of Node 18 + TypeScript 5.1 + Serverless Framework + AWS",
   "scripts": {
     "start": "serverless offline -o 127.0.0.1 --stage ${STAGE:-dev}",
-    "deploy": "NODE_ENV=production sls deploy",
+    "deploy": "NODE_ENV=production sls deploy --stage ${STAGE:-dev}",
     "debug": "sls offline -o 127.0.0.1 --inspect",
     "test": "glob -c \"node --loader tsx --test\" \"./src/**/*.test.ts\"",
     "lint": "eslint --ext .ts --fix ."
@@ -34,6 +34,7 @@
     "typescript-eslint": "^8.11.0"
   },
   "dependencies": {
+    "minimist-string": "^1.0.2",
     "node-telegram-bot-api": "^0.66.0",
     "tidy-url": "^1.18.3"
   }

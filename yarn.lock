@@ -3542,7 +3542,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.1404.0, aws-sdk@npm:^2.3.19":
+"aws-sdk@npm:^2.1404.0":
   version: 2.1691.0
   resolution: "aws-sdk@npm:2.1691.0"
   dependencies:
@@ -7130,6 +7130,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"minimist-string@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "minimist-string@npm:1.0.2"
+  dependencies:
+    minimist: "git+https://github.com/aredridel/minimist.git#91d831555bb2361d6a1c9aeae26dd86a8eab0f03"
+  checksum: 10c0/fdce3fdf7d53fbad38f932e5fec40a245f9861924af9c6a4f10b3d0fb946cc225bad4127b1d3a2bb00f958d4ae95445214ce4f3109e582b9b3cba7fe23a244fb
+  languageName: node
+  linkType: hard
+
+"minimist@git+https://github.com/aredridel/minimist.git#91d831555bb2361d6a1c9aeae26dd86a8eab0f03":
+  version: 1.2.0
+  resolution: "minimist@https://github.com/aredridel/minimist.git#commit=91d831555bb2361d6a1c9aeae26dd86a8eab0f03"
+  checksum: 10c0/f58da1846726a3c8cb4074eefc4fa91d7a9646f046c3ba2f156f1b8502adbab35b2b16863dc379670924aa91c5db0419b225e597854c5f98b39115013492b07d
+  languageName: node
+  linkType: hard
+
 "minipass-collect@npm:^2.0.1":
   version: 2.0.1
   resolution: "minipass-collect@npm:2.0.1"
@@ -8307,15 +8323,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless-dynamodb-client@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "serverless-dynamodb-client@npm:0.0.2"
-  dependencies:
-    aws-sdk: "npm:^2.3.19"
-  checksum: 10c0/8cf279f9f1123d67587d96ec5b92902af8694c21cf58ea2329d7b7ba845da9a71f66299ae2e09f3515fe15b284cae964e73b26f2a49ba9cd5000a2ed53a0a570
-  languageName: node
-  linkType: hard
-
 "serverless-dynamodb@npm:^0.2.54":
   version: 0.2.54
   resolution: "serverless-dynamodb@npm:0.2.54"
@@ -9015,12 +9022,12 @@ __metadata:
     eslint-plugin-prettier: "npm:^5.2.1"
     glob: "npm:^10.3.3"
     globals: "npm:^15.11.0"
+    minimist-string: "npm:^1.0.2"
     node-telegram-bot-api: "npm:^0.66.0"
     prettier: "npm:^3.3.3"
     serverless: "npm:^3.34.0"
     serverless-dotenv-plugin: "npm:^6.0.0"
     serverless-dynamodb: "npm:^0.2.54"
-    serverless-dynamodb-client: "npm:^0.0.2"
     serverless-esbuild: "npm:^1.54.4"
     serverless-offline: "npm:^12.0.4"
     smee-client: "npm:^2.0.4"

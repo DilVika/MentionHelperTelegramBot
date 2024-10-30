@@ -9,7 +9,7 @@ type Commands = {
 }
 
 import commands from '../configs/commands'
-import { CmdHandlerProps } from '../types'
+import { CmdHandlerProps } from '../types/types'
 
 export const startCmdHandler = async ({
   message: msg,
