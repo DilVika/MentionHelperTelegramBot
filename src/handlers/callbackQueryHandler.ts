@@ -16,6 +16,7 @@ export const callbackQueryHandler = async (
       from: replyFromUser,
       chat: query.message?.chat ?? { id: -1, type: 'private' },
     }
+
     if (queryData?.match(commands.subscribe.callBackRegex ?? '*')) {
       const topicId = queryData?.match(
         commands.subscribe.callBackRegex ?? '*',
@@ -28,6 +29,9 @@ export const callbackQueryHandler = async (
           text: `/subscribe ${topicId}`,
         }
         await subscribeHandler({ message, bot: botInstance })
+        await botInstance.answerCallbackQuery(query.id, {
+          text: 'Subscribed successfully to the topic: ' + topicId,
+        })
       } else {
         await botInstance.answerCallbackQuery(query.id, {
           text: 'Cannot process your request',

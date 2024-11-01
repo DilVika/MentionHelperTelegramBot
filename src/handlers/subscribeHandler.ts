@@ -11,10 +11,7 @@ import TelegramBot, { InlineKeyboardButton } from 'node-telegram-bot-api'
 
 import minimistS from 'minimist-string'
 
-export const subscribeHandler = async (
-  { message, bot }: CmdHandlerProps,
-  silentSubscribe: boolean = false,
-) => {
+export const subscribeHandler = async ({ message, bot }: CmdHandlerProps) => {
   const groupId = message.chat.id.toString()
   const subscriber = message.from
   const subscriberValidId = getValidUserIdFromMessage(message)
@@ -59,7 +56,13 @@ export const subscribeHandler = async (
         ),
       },
     }
-    await bot.sendMessage(groupId, 'hehe', opts)
+
+    await bot.sendMessage(
+      groupId,
+      'Current available Topics in this group are:\n',
+      opts,
+    )
+
     return
   }
 
