@@ -2,6 +2,7 @@ export type Command = {
   regex: RegExp
   desc: string
   scope: CommandScope
+  callBackRegex?: RegExp
 }
 
 export type CommandScope = 'private' | GroupCommandScope | 'all'
@@ -14,10 +15,16 @@ const commands: Record<string, Command> = {
     desc: 'Start',
     scope: 'all',
   },
+  send: {
+    regex: /^\/send/,
+    desc: 'Send message to specific chatID',
+    scope: 'private',
+  },
   subscribe: {
     regex: /^\/subscribe/,
     desc: 'Subscribe to all messages',
     scope: 'supergroup',
+    callBackRegex: /^subscribe:([a-zA-Z0-9]+)$/,
   },
   tag: {
     regex: /^\/tag/,
@@ -49,6 +56,7 @@ const commands: Record<string, Command> = {
     desc: 'Remove tracking link',
     scope: 'all',
   },
+  // Special command for callback query
 } as const
 
 export default commands

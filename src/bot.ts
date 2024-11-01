@@ -4,7 +4,7 @@ const TOKEN = process.env.BOT_TOKEN || 'ccc'
 
 import TelegramBot from 'node-telegram-bot-api'
 import commands from './configs/commands'
-import { commandHandler } from './handlers/handler'
+import { commandHandler } from './handlers/commandHandler'
 import {
   tagHandler,
   subscribeHandler,
@@ -13,10 +13,12 @@ import {
   dizzHandler,
   helpHandler,
   startCmdHandler,
+  sendCmdHandler,
   //   removeTrackingHandler,
 } from './handlers/index'
 
 import initAsync from './helpers/async'
+import { callbackQueryHandler } from './handlers/callbackQueryHandler'
 
 export default () => {
   const bot = new TelegramBot(TOKEN, {
@@ -31,46 +33,88 @@ export default () => {
     // Handlers
     bot.onText(
       commands.start.regex,
-      promisify(commands.start, bot, commandHandler, startCmdHandler),
+      promisify({
+        command: commands.start,
+        bot,
+        commandHandler,
+        handler: startCmdHandler,
+      }),
+    )
+
+    bot.onText(
+      commands.send.regex,
+      promisify({
+        command: commands.send,
+        bot,
+        commandHandler,
+        handler: sendCmdHandler,
+      }),
     )
 
     // /all with message
     bot.onText(
       commands.tag.regex,
-      promisify(commands.tag, bot, commandHandler, tagHandler),
+      promisify({
+        command: commands.tag,
+        bot,
+        commandHandler,
+        handler: tagHandler,
+      }),
     )
 
     // Subscribe to all messages
     bot.onText(
       commands.subscribe.regex,
-      promisify(commands.subscribe, bot, commandHandler, subscribeHandler),
+      promisify({
+        command: commands.subscribe,
+        bot,
+        commandHandler,
+        handler: subscribeHandler,
+      }),
     )
 
     // Send random cute cat photo when user send /cat
     bot.onText(
       commands.cat.regex,
-      promisify(commands.cat, bot, commandHandler, sendCatPicHandler),
+      promisify({
+        command: commands.cat,
+        bot,
+        commandHandler,
+        handler: sendCatPicHandler,
+      }),
     )
     // Send Ricardo Milos GiF when user send /ricardo
     bot.onText(
       commands.ricardo.regex,
-      promisify(commands.ricardo, bot, commandHandler, sendRicardoGifHandler),
+      promisify({
+        command: commands.ricardo,
+        bot,
+        commandHandler,
+        handler: sendRicardoGifHandler,
+      }),
     )
 
     bot.onText(
       commands.dizz.regex,
-      promisify(commands.dizz, bot, commandHandler, dizzHandler),
+      promisify({
+        command: commands.dizz,
+        bot,
+        commandHandler,
+        handler: dizzHandler,
+      }),
     )
 
     bot.onText(
       commands.help.regex,
-      promisify(commands.help, bot, commandHandler, helpHandler),
+      promisify({
+        command: commands.help,
+        bot,
+        commandHandler,
+        handler: helpHandler,
+      }),
     )
 
-    // /remove tracking link
-    // bot.onText(commands.link.regex, async (msg) =>
-    //   commandHandler(msg, bot, removeTrackingHandler),
-    // )
+    bot.on('callback_query', promisify({ bot, callbackQueryHandler }))
 
     bot.on('polling_error', (error) => {
       console.log(error) // => 'EFATAL'
@@ -82,11 +126,13 @@ export default () => {
 
     const processUpdate = async (input: TelegramBot.Update) => {
       const msgId = input.message?.message_id
-      if (!msgId) {
-        console.log('No message id')
+      if (!msgId && !input.callback_query) {
+        console.log('No message id or callback_query')
         return
       }
-      const promise = asyncController.createHangingPromise(msgId.toString())
+      const promise = asyncController.createHangingPromise(
+        msgId?.toString() ?? input.callback_query?.id ?? '',
+      )
       bot.processUpdate(input)
       return promise
     }
