@@ -7,7 +7,7 @@ provider:
   # stage: ${opt:stage}
   stage: dev
   # disable when deploying to production
-  # timeout: 60   # repository wide Lambda timeout
+  timeout: 60   # repository wide Lambda timeout
   environment:  # repository wide Lambda env variables
     STAGE: ${self:provider.stage}
     # This, too, can be disabled when deploying to production. Enable it for debugging.
@@ -18,6 +18,8 @@ custom:
     automatic: true
     number: 3
 
+  # serverless-offline: 
+  #   useChildProcesses: true
 
   # For serverless-dynamodb-local plugin
   serverless-dynamodb:

@@ -4,9 +4,8 @@
   "version": "1.0.0",
   "description": "A minimal example of Node 18 + TypeScript 5.1 + Serverless Framework + AWS",
   "scripts": {
-    "start": "serverless offline -o 127.0.0.1 --stage ${STAGE:-dev}",
+    "start": "nodemon --exec serverless offline -o 127.0.0.1 --stage ${STAGE:-dev}",
     "deploy": "NODE_ENV=production sls deploy",
-    "debug": "sls offline -o 127.0.0.1 --inspect",
     "test": "glob -c \"node --loader tsx --test\" \"./src/**/*.test.ts\"",
     "lint": "eslint --ext .ts --fix ."
   },
@@ -21,6 +20,7 @@
     "eslint-plugin-prettier": "^5.2.1",
     "glob": "^11.0.0",
     "globals": "^15.11.0",
+    "nodemon": "^3.1.7",
     "prettier": "^3.3.3",
     "serverless": "^4.4.7",
     "serverless-dotenv-plugin": "^6.0.0",
@@ -28,6 +28,7 @@
     "serverless-offline": "^14.3.3",
     "serverless-prune-plugin": "^2.1.0",
     "smee-client": "^2.0.4",
+    "tsx": "^4.19.2",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.12.2"
   },
