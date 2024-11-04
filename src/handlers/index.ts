@@ -5,8 +5,6 @@ import { tagHandler } from './tagHandler'
 import { startCmdHandler } from './startCmdHandler'
 import { sendRicardoGifHandler } from './sendRicardoGifHandler'
 import { sendCmdHandler } from './sendCmdHandler'
-//TODO
-// import { removeTrackingHandler } from './removeTrackingHandler.ts.todo'
 import { subscribeHandler } from './subscribeHandler'
 
 export {
@@ -16,8 +14,6 @@ export {
   sendRicardoGifHandler,
   tagHandler,
   startCmdHandler,
-  //TODO
-  // removeTrackingHandler,
   subscribeHandler,
   sendCmdHandler,
 }

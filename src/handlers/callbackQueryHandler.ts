@@ -26,10 +26,12 @@ export const callbackQueryHandler = async (
       if (replyFromUser) {
         const message = {
           ...originalMessage,
+          from: replyFromUser,
           text: `/subscribe ${topicId}`,
         }
         await subscribeHandler({ message, bot: botInstance })
         await botInstance.answerCallbackQuery(query.id, {
+          show_alert: true,
           text: 'Subscribed successfully to the topic: ' + topicId,
         })
       } else {
