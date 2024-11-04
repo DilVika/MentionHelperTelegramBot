@@ -18,6 +18,8 @@ custom:
     automatic: true
     number: 3
 
+  # serverless-offline: 
+  #   useChildProcesses: true
 
   # For serverless-dynamodb-local plugin
   serverless-dynamodb:

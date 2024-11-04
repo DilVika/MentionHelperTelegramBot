@@ -2,6 +2,7 @@ import TelegramBot from 'node-telegram-bot-api'
 
 export interface CmdHandlerProps {
   message: TelegramBot.Message
+  query?: TelegramBot.CallbackQuery
   bot: TelegramBot
 }
 

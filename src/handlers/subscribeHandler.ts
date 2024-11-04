@@ -7,7 +7,7 @@ import {
 import DynamoDB from '../db/dynamoDb'
 import { CmdHandlerProps } from '../types/types'
 import { userMentionBuilder } from '../helpers/userContentBuilder'
-import TelegramBot from 'node-telegram-bot-api'
+import TelegramBot, { InlineKeyboardButton } from 'node-telegram-bot-api'
 
 import minimistS from 'minimist-string'
 
@@ -30,14 +30,39 @@ export const subscribeHandler = async ({ message, bot }: CmdHandlerProps) => {
     const topicsList = Array.from(
       new Set(subscriptions.map((sub) => sub.topicId)),
     )
+    // await bot.sendMessage(
+    //   groupId,
+    //   // eslint-disable-next-line no-useless-escape, prettier/prettier
+    //   `Current available Topics in this group are:\n\n\>☞ ${topicsList.join('\n>☞ ')}`,
+    //   {
+    //     parse_mode: 'MarkdownV2',
+    //   },
+    // )
+    const opts = {
+      reply_to_message_id: message.message_id,
+      reply_markup: {
+        // build topic list into inline keyboard. Each button is a topic
+        // 3 topics per row
+        inline_keyboard: topicsList.reduce<InlineKeyboardButton[][]>(
+          (acc, curr, index) => {
+            if (index % 2 === 0) acc.push([])
+            acc[acc.length - 1].push({
+              text: curr,
+              callback_data: `subscribe:${curr}`,
+            })
+            return acc
+          },
+          [],
+        ),
+      },
+    }
+
     await bot.sendMessage(
       groupId,
-      // eslint-disable-next-line no-useless-escape, prettier/prettier
-      `Current available Topics in this group are:\n\n\>☞ ${topicsList.join('\n>☞ ')}`,
-      {
-        parse_mode: 'MarkdownV2',
-      },
+      'Current available Topics in this group are:\n',
+      opts,
     )
+
     return
   }
 
