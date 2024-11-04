@@ -2,11 +2,11 @@ import {
   ANY_COMMAND_REGEX,
   NO_MSG_CONTENT,
   SINGLE_SPACE_STR,
-} from '../configs/constants.js'
-import DynamoDB from '../db/dynamoDb.js'
-import { uniqueSubscriptions } from '../db/parsers.js'
-import { userMentionBuilderById } from '../helpers/userContentBuilder.js'
-import { CmdHandlerProps, UserTopicSubscription } from '../types/types.js'
+} from '../../configs/constants'
+import DynamoDB from '../../db/dynamoDb'
+import { uniqueSubscriptions } from '../../db/parsers'
+import { userMentionBuilderById } from '../../helpers/userContentBuilder'
+import { CmdHandlerProps, UserTopicSubscription } from '../../types/types'
 
 export const tagHandler = async ({ message, bot }: CmdHandlerProps) => {
   const chatId = message.chat.id

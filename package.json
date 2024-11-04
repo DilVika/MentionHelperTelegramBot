@@ -7,7 +7,7 @@
     "start": "nodemon --exec serverless offline -o 127.0.0.1 --stage ${STAGE:-dev}",
     "deploy": "NODE_ENV=production sls deploy",
     "test": "glob -c \"node --loader tsx --test\" \"./src/**/*.test.ts\"",
-    "lint": "eslint --ext .ts --fix ."
+    "lint": "eslint --fix-dry-run"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.1.0",

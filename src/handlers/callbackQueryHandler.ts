@@ -1,6 +1,6 @@
 import TelegramBot from 'node-telegram-bot-api'
 import commands from '../configs/commands'
-import { subscribeHandler } from './subscribeHandler'
+import { subscribeHandler } from './commands/subscribeHandler'
 
 export const callbackQueryHandler = async (
   botInstance: TelegramBot,

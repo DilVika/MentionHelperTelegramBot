@@ -1,12 +1,12 @@
-import { getValidUserIdFromMessage } from '../misc/utils'
+import { getValidUserIdFromMessage } from '../../misc/utils'
 import {
   ANY_COMMAND_REGEX,
   REJECT_USER_ID,
   SINGLE_SPACE_STR,
-} from '../configs/constants'
-import DynamoDB from '../db/dynamoDb'
-import { CmdHandlerProps } from '../types/types'
-import { userMentionBuilder } from '../helpers/userContentBuilder'
+} from '../../configs/constants'
+import DynamoDB from '../../db/dynamoDb'
+import { CmdHandlerProps } from '../../types/types'
+import { userMentionBuilder } from '../../helpers/userContentBuilder'
 import TelegramBot, { InlineKeyboardButton } from 'node-telegram-bot-api'
 
 import minimistS from 'minimist-string'

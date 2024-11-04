@@ -1,5 +1,5 @@
-import { ricardoMilosGifProvider } from '../configs/constants'
-import { CmdHandlerProps } from '../types/types'
+import { ricardoMilosGifProvider } from '../../configs/constants'
+import { CmdHandlerProps } from '../../types/types'
 
 export const sendRicardoGifHandler = async ({
   bot,

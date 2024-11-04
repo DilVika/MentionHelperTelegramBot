@@ -1,5 +1,5 @@
-import { ANY_COMMAND_REGEX } from '../configs/constants'
-import { CmdHandlerProps } from '../types/types'
+import { ANY_COMMAND_REGEX } from '../../configs/constants'
+import { CmdHandlerProps } from '../../types/types'
 
 export const sendCmdHandler = async ({
   message: msg,

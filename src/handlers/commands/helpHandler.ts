@@ -1,5 +1,5 @@
-import commands from '../configs/commands'
-import { CmdHandlerProps } from '../types/types'
+import commands from '../../configs/commands'
+import { CmdHandlerProps } from '../../types/types'
 
 export const helpHandler = async ({ message: msg, bot }: CmdHandlerProps) => {
   const chatId = msg.chat.id
