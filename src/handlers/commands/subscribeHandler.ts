@@ -4,15 +4,17 @@ import {
   REJECT_USER_ID,
   SINGLE_SPACE_STR,
 } from '../../configs/constants'
-import DynamoDB from '../../db/dynamoDb'
 import { CmdHandlerProps } from '../../types/types'
 import { userMentionBuilder } from '../../helpers/userContentBuilder'
 import TelegramBot, { InlineKeyboardButton } from 'node-telegram-bot-api'
 
 import minimistS from 'minimist-string'
+import { SubscriptionRepository } from '../../data_sources/db/dynamoDb'
 
 export const subscribeHandler = async ({ message, bot }: CmdHandlerProps) => {
-  const groupId = message.chat.id.toString()
+  const dataSource = new SubscriptionRepository()
+
+  const groupId = message.chat.id
   const subscriber = message.from
   const subscriberValidId = getValidUserIdFromMessage(message)
 
@@ -23,8 +25,8 @@ export const subscribeHandler = async ({ message, bot }: CmdHandlerProps) => {
   // Output the parsed arguments to inspect the structure
 
   if (args.l || args.list) {
-    const subscriptions = await DynamoDB.getAllSubscriptions({
-      groupId,
+    const subscriptions = await dataSource.getAllSubscriptionsByGroup({
+      groupId: groupId.toString(),
     })
 
     const topicsList = Array.from(
@@ -76,7 +78,13 @@ export const subscribeHandler = async ({ message, bot }: CmdHandlerProps) => {
   if (subscriberValidId !== REJECT_USER_ID && subscriber) {
     // Subscribe topics
     if ((topics?.length ?? 0) == 0) {
-      await _subscribeSingleTopic(groupId, subscriberValidId, bot, subscriber)
+      await _subscribeSingleTopic(
+        groupId.toString(),
+        subscriberValidId,
+        bot,
+        dataSource,
+        subscriber,
+      )
     } else if ((topics?.length ?? 0) > 5) {
       await bot.sendMessage(
         groupId,
@@ -85,10 +93,11 @@ export const subscribeHandler = async ({ message, bot }: CmdHandlerProps) => {
     } else {
       await _subscribeMultipleTopics(
         topics,
-        groupId,
+        groupId.toString(),
         subscriberValidId,
         subscriber,
         bot,
+        dataSource,
       )
     }
   } else {
@@ -102,6 +111,7 @@ async function _subscribeMultipleTopics(
   subscriberValidId: number,
   subscriber: TelegramBot.User,
   bot: TelegramBot,
+  dataSource: SubscriptionRepository,
 ) {
   const isValidTopics = topics?.every((topic) => {
     // Check if topic is valid
@@ -111,7 +121,7 @@ async function _subscribeMultipleTopics(
 
   if (isValidTopics) {
     topics?.forEach(async (topic) => {
-      await DynamoDB.putSubscription({
+      await dataSource.makeSubscription({
         groupId,
         userId: subscriberValidId.toString(),
         userName: subscriber?.username ?? subscriber?.first_name,
@@ -137,9 +147,10 @@ async function _subscribeSingleTopic(
   groupId: string,
   subscriberValidId: number,
   bot: TelegramBot,
+  dataSource: SubscriptionRepository,
   subscriber?: TelegramBot.User,
 ) {
-  await DynamoDB.putSubscription({
+  await dataSource.makeSubscription({
     groupId,
     userId: subscriberValidId.toString(),
     userName: subscriber?.username ?? subscriber?.first_name,
