@@ -3,13 +3,13 @@ import {
   NO_MSG_CONTENT,
   SINGLE_SPACE_STR,
 } from '../../configs/constants'
-import { SubscriptionRepository } from '../../data_sources/db/dynamoDb'
-import { uniqueSubscriptions } from '../../data_sources/parsers'
+import { uniqueSubscriptions } from '../../repository/parsers'
 import { userMentionBuilderById } from '../../helpers/userContentBuilder'
+import { SubscriptionRepository } from '../../repository/SubscriptionRepository'
 import { CmdHandlerProps, UserTopicSubscription } from '../../types/types'
 
 export const tagHandler = async ({ message, bot }: CmdHandlerProps) => {
-  const dataSource = new SubscriptionRepository()
+  const repo = new SubscriptionRepository()
 
   const chatId = message.chat.id
 
@@ -23,12 +23,10 @@ export const tagHandler = async ({ message, bot }: CmdHandlerProps) => {
 
   if ((topics?.length ?? 0) == 0 || (topics?.length ?? 0) > 1) {
     tagList = uniqueSubscriptions(
-      await dataSource.getAllSubscriptionsByGroup({
-        groupId: chatId.toString(),
-      }),
+      await repo.getAllSubscriptionsByGroup(chatId.toString()),
     )
   } else {
-    tagList = await dataSource.getSubscriptionsByGroupAndTopic({
+    tagList = await repo.getSubscriptionsByGroupAndTopic({
       groupId: chatId.toString(),
       topicName: topics![0],
     })

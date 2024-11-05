@@ -9,10 +9,10 @@ import { userMentionBuilder } from '../../helpers/userContentBuilder'
 import TelegramBot, { InlineKeyboardButton } from 'node-telegram-bot-api'
 
 import minimistS from 'minimist-string'
-import { SubscriptionRepository } from '../../data_sources/db/dynamoDb'
+import { SubscriptionRepository } from '../../repository/SubscriptionRepository'
 
 export const subscribeHandler = async ({ message, bot }: CmdHandlerProps) => {
-  const dataSource = new SubscriptionRepository()
+  const repo = new SubscriptionRepository()
 
   const groupId = message.chat.id
   const subscriber = message.from
@@ -25,21 +25,10 @@ export const subscribeHandler = async ({ message, bot }: CmdHandlerProps) => {
   // Output the parsed arguments to inspect the structure
 
   if (args.l || args.list) {
-    const subscriptions = await dataSource.getAllSubscriptionsByGroup({
-      groupId: groupId.toString(),
-    })
+    const allSubs = await repo.getAllSubscriptionsByGroup(groupId.toString())
 
-    const topicsList = Array.from(
-      new Set(subscriptions.map((sub) => sub.topicId)),
-    )
-    // await bot.sendMessage(
-    //   groupId,
-    //   // eslint-disable-next-line no-useless-escape, prettier/prettier
-    //   `Current available Topics in this group are:\n\n\>☞ ${topicsList.join('\n>☞ ')}`,
-    //   {
-    //     parse_mode: 'MarkdownV2',
-    //   },
-    // )
+    const topicsList = Array.from(new Set(allSubs.map((sub) => sub.topicId)))
+
     const opts = {
       reply_to_message_id: message.message_id,
       reply_markup: {
@@ -82,7 +71,7 @@ export const subscribeHandler = async ({ message, bot }: CmdHandlerProps) => {
         groupId.toString(),
         subscriberValidId,
         bot,
-        dataSource,
+        repo,
         subscriber,
       )
     } else if ((topics?.length ?? 0) > 5) {
@@ -97,7 +86,7 @@ export const subscribeHandler = async ({ message, bot }: CmdHandlerProps) => {
         subscriberValidId,
         subscriber,
         bot,
-        dataSource,
+        repo,
       )
     }
   } else {
@@ -121,7 +110,7 @@ async function _subscribeMultipleTopics(
 
   if (isValidTopics) {
     topics?.forEach(async (topic) => {
-      await dataSource.makeSubscription({
+      await dataSource.createSubscription({
         groupId,
         userId: subscriberValidId.toString(),
         userName: subscriber?.username ?? subscriber?.first_name,
@@ -150,7 +139,7 @@ async function _subscribeSingleTopic(
   dataSource: SubscriptionRepository,
   subscriber?: TelegramBot.User,
 ) {
-  await dataSource.makeSubscription({
+  await dataSource.createSubscription({
     groupId,
     userId: subscriberValidId.toString(),
     userName: subscriber?.username ?? subscriber?.first_name,

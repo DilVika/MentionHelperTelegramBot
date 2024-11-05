@@ -13,11 +13,3 @@ export interface UserTopicSubscription {
   userName?: string
   subscribedAt: Date
 }
-
-// DynamoDB
-export interface DynamoDBUserTopicSubscription {
-  GroupID: string
-  'TopicID#UserID': string
-  UserName?: string
-  Timestamp: string
-}
