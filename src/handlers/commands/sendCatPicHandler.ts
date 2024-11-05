@@ -1,6 +1,6 @@
-import { catImgProvider } from '../configs/constants.js'
-import { cacheListBuilder } from '../misc/utils'
-import { CmdHandlerProps } from '../types/types.js'
+import { catImgProvider } from '../../configs/constants'
+import { cacheListBuilder } from '../../misc/utils'
+import { CmdHandlerProps } from '../../types/types'
 
 export const sendCatPicHandler = async ({ message, bot }: CmdHandlerProps) => {
   const chatId = message.chat.id

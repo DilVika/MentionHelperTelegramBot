@@ -1,10 +1,8 @@
-import {
-  DynamoDBUserTopicSubscription,
-  UserTopicSubscription,
-} from '../types/types'
+import { SubscriptionEntity } from '../data_sources/entities/SubscriptionWEntity'
+import { UserTopicSubscription } from '../types/types'
 
-export const parseDynamoDBItem = (
-  item: DynamoDBUserTopicSubscription,
+export const parseDataSourceItem = (
+  item: SubscriptionEntity,
 ): UserTopicSubscription => {
   const [TopicID, UserID] = item['TopicID#UserID'].split('#')
 

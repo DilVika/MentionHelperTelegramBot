@@ -5,13 +5,13 @@ import {
   SINGLE_SPACE_STR,
   WRONG_CHAT_TYPE_MSG,
 } from '../configs/constants'
-import { rickRollHandler } from './rickrollHandler'
+import { rickRollHandler } from './commands/rickrollHandler'
 import { getRandomInt } from '../misc/utils'
 import TelegramBot from 'node-telegram-bot-api'
 import { CmdHandlerProps } from '../types/types'
 import { Command } from '../configs/commands'
 
-export const commandHandler = async (
+export const commandController = async (
   command: Command,
   msg: TelegramBot.Message,
   botInstance: TelegramBot,

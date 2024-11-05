@@ -1,11 +1,11 @@
-import { dizzHandler } from './dizzHandler'
-import { helpHandler } from './helpHandler'
-import { sendCatPicHandler } from './sendCatPicHandler'
-import { tagHandler } from './tagHandler'
-import { startCmdHandler } from './startCmdHandler'
-import { sendRicardoGifHandler } from './sendRicardoGifHandler'
-import { sendCmdHandler } from './sendCmdHandler'
-import { subscribeHandler } from './subscribeHandler'
+import { dizzHandler } from './commands/dizzHandler'
+import { helpHandler } from './commands/helpHandler'
+import { sendCatPicHandler } from './commands/sendCatPicHandler'
+import { tagHandler } from './commands/tagHandler'
+import { startCmdHandler } from './commands/startCmdHandler'
+import { sendRicardoGifHandler } from './commands/sendRicardoGifHandler'
+import { sendCmdHandler } from './commands/sendCmdHandler'
+import { subscribeHandler } from './commands/subscribeHandler'
 
 export {
   dizzHandler,

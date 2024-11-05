@@ -2,13 +2,15 @@ import {
   ANY_COMMAND_REGEX,
   NO_MSG_CONTENT,
   SINGLE_SPACE_STR,
-} from '../configs/constants.js'
-import DynamoDB from '../db/dynamoDb.js'
-import { uniqueSubscriptions } from '../db/parsers.js'
-import { userMentionBuilderById } from '../helpers/userContentBuilder.js'
-import { CmdHandlerProps, UserTopicSubscription } from '../types/types.js'
+} from '../../configs/constants'
+import { uniqueSubscriptions } from '../../repository/parsers'
+import { userMentionBuilderById } from '../../helpers/userContentBuilder'
+import { SubscriptionRepository } from '../../repository/SubscriptionRepository'
+import { CmdHandlerProps, UserTopicSubscription } from '../../types/types'
 
 export const tagHandler = async ({ message, bot }: CmdHandlerProps) => {
+  const repo = new SubscriptionRepository()
+
   const chatId = message.chat.id
 
   let tagList: UserTopicSubscription[] = []
@@ -21,12 +23,10 @@ export const tagHandler = async ({ message, bot }: CmdHandlerProps) => {
 
   if ((topics?.length ?? 0) == 0 || (topics?.length ?? 0) > 1) {
     tagList = uniqueSubscriptions(
-      await DynamoDB.getAllSubscriptions({
-        groupId: chatId.toString(),
-      }),
+      await repo.getAllSubscriptionsByGroup(chatId.toString()),
     )
   } else {
-    tagList = await DynamoDB.getSubscriptionsByTopic({
+    tagList = await repo.getSubscriptionsByGroupAndTopic({
       groupId: chatId.toString(),
       topicName: topics![0],
     })

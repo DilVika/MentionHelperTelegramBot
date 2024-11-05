@@ -1,10 +1,8 @@
-// import { startCmdHandler } from './handlers/index.js'
-
 const TOKEN = process.env.BOT_TOKEN || 'ccc'
 
 import TelegramBot from 'node-telegram-bot-api'
 import commands from './configs/commands'
-import { commandHandler } from './handlers/commandHandler'
+import { commandController } from './handlers/commandController'
 import {
   tagHandler,
   subscribeHandler,
@@ -18,9 +16,9 @@ import {
 } from './handlers/index'
 
 import initAsync from './helpers/async'
-import { callbackQueryHandler } from './handlers/callbackQueryHandler'
+import { callbackQueryController } from './handlers/callbackQueryController'
 
-export default () => {
+function initBot() {
   const bot = new TelegramBot(TOKEN, {
     baseApiUrl: process.env.BASE_URL,
   })
@@ -36,7 +34,7 @@ export default () => {
       promisify({
         command: commands.start,
         bot,
-        commandHandler,
+        commandHandler: commandController,
         handler: startCmdHandler,
       }),
     )
@@ -46,7 +44,7 @@ export default () => {
       promisify({
         command: commands.send,
         bot,
-        commandHandler,
+        commandHandler: commandController,
         handler: sendCmdHandler,
       }),
     )
@@ -57,7 +55,7 @@ export default () => {
       promisify({
         command: commands.tag,
         bot,
-        commandHandler,
+        commandHandler: commandController,
         handler: tagHandler,
       }),
     )
@@ -68,7 +66,7 @@ export default () => {
       promisify({
         command: commands.subscribe,
         bot,
-        commandHandler,
+        commandHandler: commandController,
         handler: subscribeHandler,
       }),
     )
@@ -79,7 +77,7 @@ export default () => {
       promisify({
         command: commands.cat,
         bot,
-        commandHandler,
+        commandHandler: commandController,
         handler: sendCatPicHandler,
       }),
     )
@@ -89,7 +87,7 @@ export default () => {
       promisify({
         command: commands.ricardo,
         bot,
-        commandHandler,
+        commandHandler: commandController,
         handler: sendRicardoGifHandler,
       }),
     )
@@ -99,7 +97,7 @@ export default () => {
       promisify({
         command: commands.dizz,
         bot,
-        commandHandler,
+        commandHandler: commandController,
         handler: dizzHandler,
       }),
     )
@@ -109,12 +107,15 @@ export default () => {
       promisify({
         command: commands.help,
         bot,
-        commandHandler,
+        commandHandler: commandController,
         handler: helpHandler,
       }),
     )
 
-    bot.on('callback_query', promisify({ bot, callbackQueryHandler }))
+    bot.on(
+      'callback_query',
+      promisify({ bot, callbackQueryHandler: callbackQueryController }),
+    )
 
     bot.on('polling_error', (error) => {
       console.log(error) // => 'EFATAL'
@@ -140,3 +141,4 @@ export default () => {
   }
   return { start, botInstance: bot }
 }
+export { initBot }
