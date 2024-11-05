@@ -4,23 +4,26 @@
   "version": "1.0.0",
   "description": "A minimal example of Node 18 + TypeScript 5.1 + Serverless Framework + AWS",
   "scripts": {
-    "start": "nodemon --exec serverless offline -o 127.0.0.1 --stage ${STAGE:-dev}",
-    "deploy": "NODE_ENV=production sls deploy",
-    "test": "glob -c \"node --loader tsx --test\" \"./src/**/*.test.ts\"",
-    "lint": "eslint --fix-dry-run"
+    "start:sls": "nodemon --exec serverless offline -o 127.0.0.1 --stage ${STAGE:-dev}",
+    "deploy:sls": "NODE_ENV=production sls deploy",
+    "start:express": "tsx --env-file=.env src/server.mts",
+    "build:express": "pkgroll"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.14.0",
     "@types/aws-lambda": "^8.10.145",
+    "@types/express": "^4",
     "@types/node": "^22.8.7",
     "@types/node-telegram-bot-api": "^0.64.7",
+    "concurrently": "^9.1.0",
     "eslint": "^9.13.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "glob": "^11.0.0",
     "globals": "^15.11.0",
     "nodemon": "^3.1.7",
+    "pkgroll": "^2.5.1",
     "prettier": "^3.3.3",
     "serverless": "^4.4.7",
     "serverless-dotenv-plugin": "^6.0.0",
@@ -33,8 +36,10 @@
     "typescript-eslint": "^8.12.2"
   },
   "dependencies": {
+    "express": "^4.21.1",
     "minimist-string": "^1.0.2",
     "node-telegram-bot-api": "^0.66.0",
     "tidy-url": "^1.18.3"
-  }
+  },
+  "exports": "./dist/server.mjs"
 }

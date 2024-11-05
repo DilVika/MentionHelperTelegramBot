@@ -4,7 +4,7 @@ import type {
   Handler,
   APIGatewayProxyStructuredResultV2,
 } from 'aws-lambda'
-import initBot from './bot'
+import { initBot } from './bot'
 
 export const handler: Handler = async (
   event: APIGatewayProxyEventV2,

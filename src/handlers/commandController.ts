@@ -11,7 +11,7 @@ import TelegramBot from 'node-telegram-bot-api'
 import { CmdHandlerProps } from '../types/types'
 import { Command } from '../configs/commands'
 
-export const commandHandler = async (
+export const commandController = async (
   command: Command,
   msg: TelegramBot.Message,
   botInstance: TelegramBot,

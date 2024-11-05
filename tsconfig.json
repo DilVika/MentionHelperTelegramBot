@@ -11,8 +11,10 @@
     "strict": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
+    "outDir": "dist",
   },
   "include": [
     "src/**/*.ts",
-    "lambda.ts" ],
+    "lambda.ts"
+  ],
 }
