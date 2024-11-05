@@ -30,16 +30,19 @@ This bot is built with Node.js and TypeScript using the Serverless Framework for
 BOT_TOKEN=your_telegram_bot_token
 ```
 
-4. Run the bot locally with `yarn dev`
+4. Run the bot locally with `yarn start:sls` for Serverless offline or `yarn start` for Express server
 
 ## Deployment
+
+### Serverless Framework
 
 1. Configure your AWS credentials.
 2. Deploy the bot with `yarn deploy`
 
-## Linting
+### Express Server
 
-Run ESLint with `yarn lint`
+1. Build the project with `yarn build`
+2. Deploy using /dist folder onto your server
 
 ## References
 
@@ -49,3 +52,4 @@ Run ESLint with `yarn lint`
 - [Serverless Offline](https://www.serverless.com/plugins/serverless-offline)
 - [Telegram Bot API](https://core.telegram.org/bots/api)
 - [DynamoDB](https://aws.amazon.com/dynamodb/)
+- [Express](https://expressjs.com/)
