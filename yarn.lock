@@ -6375,14 +6375,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless-dynamodb@npm:^0.2.54":
-  version: 0.2.54
-  resolution: "serverless-dynamodb@npm:0.2.54"
+"serverless-dynamodb@npm:^0.2.55":
+  version: 0.2.55
+  resolution: "serverless-dynamodb@npm:0.2.55"
   dependencies:
     "@aws-sdk/client-dynamodb": "npm:^3.428.0"
     "@aws-sdk/lib-dynamodb": "npm:^3.428.0"
     aws-dynamodb-local: "npm:^0.0.11"
-  checksum: 10c0/445877665980c438b95c68e710227e9eb644db4a33008c28b308b3c0e96d2b6494641a33a43967dafac472f9bc2027732fdaec10f30103ec249e6ec879b1770f
+  checksum: 10c0/d3897ac6b540464c187ed0e0f422bfa975869d8a8c73d99821bcd5602639c2dedcb6ef10131b4309fc3ddbc73ee95f276b3cef58906e5ec1a27787638598111d
   languageName: node
   linkType: hard
 
@@ -6823,7 +6823,7 @@ __metadata:
     prettier: "npm:^3.3.3"
     serverless: "npm:^4.4.7"
     serverless-dotenv-plugin: "npm:^6.0.0"
-    serverless-dynamodb: "npm:^0.2.54"
+    serverless-dynamodb: "npm:^0.2.55"
     serverless-offline: "npm:^14.3.3"
     serverless-prune-plugin: "npm:^2.1.0"
     smee-client: "npm:^2.0.4"
