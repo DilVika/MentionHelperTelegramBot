@@ -6,10 +6,23 @@ import type {
 } from 'aws-lambda'
 import { initBot } from './bot'
 
-export const handler: Handler = async (
+const handler: Handler = async (
   event: APIGatewayProxyEventV2,
   // context: Context,
 ): Promise<APIGatewayProxyStructuredResultV2> => {
+  // Prevent unauthorized access
+  const TELE_SECRET_HEADER_KEY = 'X-Telegram-Bot-Api-Secret-Token'
+  const TELE_SECRET = process.env.TELE_SECRET
+  const header = event.headers[TELE_SECRET_HEADER_KEY]
+  if (header !== TELE_SECRET) {
+    return {
+      statusCode: 401,
+      body: JSON.stringify({
+        message: 'Unauthorized',
+      }),
+    }
+  }
+
   const request = event.body ?? ''
   const parsedData = JSON.parse(request)
 
@@ -29,6 +42,7 @@ export const handler: Handler = async (
       }),
     }
   } catch (error) {
+    console.error('Error processing update', error)
     return {
       statusCode: 500,
       body: JSON.stringify({
@@ -38,3 +52,5 @@ export const handler: Handler = async (
     }
   }
 }
+
+export default handler

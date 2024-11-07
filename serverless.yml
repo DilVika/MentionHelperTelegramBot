@@ -11,7 +11,7 @@ provider:
   environment:  # repository wide Lambda env variables
     STAGE: ${self:provider.stage}
     # This, too, can be disabled when deploying to production. Enable it for debugging.
-    # NODE_OPTIONS: "--enable-source-maps"
+    NODE_OPTIONS: "--enable-source-maps"
 
 custom:
   prune:

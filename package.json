@@ -4,10 +4,11 @@
   "version": "1.0.0",
   "description": "A minimal example of Node 18 + TypeScript 5.1 + Serverless Framework + AWS",
   "scripts": {
-    "start:sls": "nodemon --exec serverless offline -o 127.0.0.1 --stage ${STAGE:-dev}",
-    "deploy:sls": "NODE_ENV=production sls deploy",
     "start:express": "tsx --env-file=.env src/server.mts",
-    "build:express": "pkgroll"
+    "build:express": "pkgroll",
+    "build:aws": "sam build",
+    "deploy:aws": "dotenv -e .env -- bash -c \"sam deploy --parameter-overrides $(awk -F= '{print \"ParameterKey=\" $1 \",ParameterValue=\" $2}' .env | tr '\\n' ' ')\"",
+    "lint": "eslint '*.ts' --quiet --fix"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.1.0",
@@ -17,6 +18,7 @@
     "@types/node": "^22.8.7",
     "@types/node-telegram-bot-api": "^0.64.7",
     "concurrently": "^9.1.0",
+    "dotenv-cli": "^7.4.2",
     "eslint": "^9.14.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
@@ -26,17 +28,14 @@
     "pkgroll": "^2.5.1",
     "prettier": "^3.3.3",
     "serverless": "^4.4.7",
-    "serverless-dotenv-plugin": "^6.0.0",
-    "serverless-dynamodb": "^0.2.55",
-    "serverless-offline": "^14.3.3",
-    "serverless-prune-plugin": "^2.1.0",
     "smee-client": "^2.0.4",
     "tsx": "^4.19.2",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.12.2"
   },
   "dependencies": {
-    "express": "^4.21.1",
+    "aws-sdk": "^2.1691.0",
+    "esbuild": "^0.24.0",
     "minimist-string": "^1.0.2",
     "node-telegram-bot-api": "^0.66.0",
     "tidy-url": "^1.18.3"

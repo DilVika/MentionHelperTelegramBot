@@ -16,7 +16,7 @@ export const WRONG_CHAT_TYPE_MSG =
 
 // DynamoDB
 export const REJECT_USER_ID = -1
-export const DYNAMODB_TABLE = 'UserTopicGroup'
+export const DYNAMODB_TABLE = 'UserTopicGroupTable'
 export const DEFAULT_TOPIC_NAME = 'general'
 
 // Regex

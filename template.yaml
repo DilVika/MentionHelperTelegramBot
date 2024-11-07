@@ -1,0 +1,98 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: |
+  tag-bot-telegram
+  Sample SAM Template for tag-bot-telegram
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    #   Timeout: 3
+
+    # You can add LoggingConfig parameters such as the Logformat, Log Group, and SystemLogLevel or ApplicationLogLevel. Learn more here https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html#sam-function-loggingconfig.
+    LoggingConfig:
+      LogFormat: JSON
+
+Resources:
+  TagAllBotFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: ./src/lambda.handler # Adjust if needed
+      Runtime: nodejs20.x
+      CodeUri: .
+      Architectures:
+        - arm64
+      Environment:
+        Variables:
+          BOT_TOKEN: !Ref BOT_TOKEN
+          OWNER_ID: !Ref OWNER_ID
+          DB_TYPE: !Ref DB_TYPE
+          TELE_SECRET: !Ref TELE_SECRET
+      Events:
+        ApiEvent:
+          Type: HttpApi # This will create an API Gateway HTTP API trigger
+          Properties:
+            Path: /tagAllBot
+            Method: post
+
+      Policies:
+        - DynamoDBReadPolicy:
+            # Grants read-only access to DynamoDB tables
+            TableName: !Ref UserTopicGroupTable # Substitute your actual table name
+        - DynamoDBWritePolicy:
+            # Grants write access to DynamoDB tables
+            TableName: !Ref UserTopicGroupTable
+    Metadata:
+      # Manage esbuild properties
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: es2022
+        Sourcemap: true
+        EntryPoints:
+          - src/lambda
+        External:
+          - '@aws-sdk/lib-dynamodb'
+          - '@aws-sdk/client-dynamodb'
+
+  HttpApiGateway:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      Name: TagAllBotApi
+      StageName: Prod
+      # DefaultRoute:
+      #   Method: POST
+      #   ResourcePath: "/tagAllBot"
+      #   Target: !GetAtt TagAllBotFunction.Arn
+
+  UserTopicGroupTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: UserTopicGroupTable
+      AttributeDefinitions:
+        - AttributeName: GroupID
+          AttributeType: S
+        - AttributeName: TopicID#UserID
+          AttributeType: S
+      KeySchema:
+        - AttributeName: GroupID
+          KeyType: HASH
+        - AttributeName: TopicID#UserID
+          KeyType: RANGE
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  TagAllBotFunctionArn:
+    Description: The ARN of the TagAllBot Lambda function
+    Value: !GetAtt TagAllBotFunction.Arn
+    Export:
+      Name: TagAllBotFunctionArn # Optionally, export this output to reference it in other stacks
+
+  TagAllBotFunctionUrl:
+    Description: The HTTP endpoint for TagAllBotFunction
+    Value: !Sub https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/tagAllBot
