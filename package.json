@@ -28,7 +28,7 @@
     "serverless": "^4.4.7",
     "serverless-dotenv-plugin": "^6.0.0",
     "serverless-dynamodb": "^0.2.55",
-    "serverless-offline": "^14.3.3",
+    "serverless-offline": "^14.3.4",
     "serverless-prune-plugin": "^2.1.0",
     "smee-client": "^2.0.4",
     "tsx": "^4.19.2",

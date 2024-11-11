@@ -6386,9 +6386,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless-offline@npm:^14.3.3":
-  version: 14.3.3
-  resolution: "serverless-offline@npm:14.3.3"
+"serverless-offline@npm:^14.3.4":
+  version: 14.3.4
+  resolution: "serverless-offline@npm:14.3.4"
   dependencies:
     "@aws-sdk/client-lambda": "npm:^3.636.0"
     "@hapi/boom": "npm:^10.0.1"
@@ -6417,7 +6417,7 @@ __metadata:
     ws: "npm:^8.18.0"
   peerDependencies:
     serverless: ^4.0.0
-  checksum: 10c0/676bf03a000213629221896c45e59003a9d109d0734dfe6de2f5d45e07e2675d08373554ff8c8801db6f03095751261699f8ffe8f3751bb1f26b1f6757e6474d
+  checksum: 10c0/f8be27c66dbb05b4c11833b9f584f6c0ee18df93e9fea7bad9968654c8049fbbfd0cacd8764767d12fa8c60e812f467fe3b54616bf61904a8fd627f63cf47493
   languageName: node
   linkType: hard
 
@@ -6824,7 +6824,7 @@ __metadata:
     serverless: "npm:^4.4.7"
     serverless-dotenv-plugin: "npm:^6.0.0"
     serverless-dynamodb: "npm:^0.2.55"
-    serverless-offline: "npm:^14.3.3"
+    serverless-offline: "npm:^14.3.4"
     serverless-prune-plugin: "npm:^2.1.0"
     smee-client: "npm:^2.0.4"
     tidy-url: "npm:^1.18.3"
