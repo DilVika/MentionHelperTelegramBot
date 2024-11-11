@@ -8,7 +8,6 @@ import {
   subscribeHandler,
   sendCatPicHandler,
   sendRicardoGifHandler,
-  dizzHandler,
   helpHandler,
   startCmdHandler,
   sendCmdHandler,
@@ -89,16 +88,6 @@ function initBot() {
         bot,
         commandHandler: commandController,
         handler: sendRicardoGifHandler,
-      }),
-    )
-
-    bot.onText(
-      commands.dizz.regex,
-      promisify({
-        command: commands.dizz,
-        bot,
-        commandHandler: commandController,
-        handler: dizzHandler,
       }),
     )
 

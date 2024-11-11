@@ -1,24 +1,22 @@
 import type {
   // Context,
   APIGatewayProxyEventV2,
-  Handler,
   APIGatewayProxyStructuredResultV2,
 } from 'aws-lambda'
 import { initBot } from './bot'
+import { TELE_SECRET_HEADER_KEY } from './configs/constants'
 
-const handler: Handler = async (
+export const handler = async (
   event: APIGatewayProxyEventV2,
   // context: Context,
 ): Promise<APIGatewayProxyStructuredResultV2> => {
-  // Prevent unauthorized access
-  const TELE_SECRET_HEADER_KEY = 'X-Telegram-Bot-Api-Secret-Token'
   const TELE_SECRET = process.env.TELE_SECRET
   const header = event.headers[TELE_SECRET_HEADER_KEY]
   if (header !== TELE_SECRET) {
     return {
       statusCode: 401,
       body: JSON.stringify({
-        message: 'Unauthorized',
+        message: 'Unauthorized access',
       }),
     }
   }
@@ -52,5 +50,3 @@ const handler: Handler = async (
     }
   }
 }
-
-export default handler

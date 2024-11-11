@@ -7,6 +7,7 @@
     "start:express": "tsx --env-file=.env src/server.mts",
     "build:express": "pkgroll",
     "build:aws": "sam build",
+    "start:aws": "sam local start-api --env-vars .env.sam.local.json --debug --warm-containers EAGER",
     "deploy:aws": "dotenv -e .env -- bash -c \"sam deploy --parameter-overrides $(awk -F= '{print \"ParameterKey=\" $1 \",ParameterValue=\" $2}' .env | tr '\\n' ' ')\"",
     "lint": "eslint '*.ts' --quiet --fix"
   },

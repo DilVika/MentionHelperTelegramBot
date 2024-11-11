@@ -17,17 +17,17 @@ Resources:
   TagAllBotFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: ./src/lambda.handler # Adjust if needed
+      Handler: src/lambda.handler # Adjust if needed
       Runtime: nodejs20.x
-      CodeUri: .
+      CodeUri: ./
       Architectures:
         - arm64
-      Environment:
-        Variables:
-          BOT_TOKEN: !Ref BOT_TOKEN
-          OWNER_ID: !Ref OWNER_ID
-          DB_TYPE: !Ref DB_TYPE
-          TELE_SECRET: !Ref TELE_SECRET
+      # Environment:
+      #   Variables:
+      #     BOT_TOKEN: !Ref BOT_TOKEN
+      #     OWNER_ID: !Ref OWNER_ID
+      #     DB_TYPE: !Ref DB_TYPE
+      #     TELE_SECRET: !Ref TELE_SECRET
       Events:
         ApiEvent:
           Type: HttpApi # This will create an API Gateway HTTP API trigger
@@ -42,15 +42,16 @@ Resources:
         - DynamoDBWritePolicy:
             # Grants write access to DynamoDB tables
             TableName: !Ref UserTopicGroupTable
+
     Metadata:
       # Manage esbuild properties
       BuildMethod: esbuild
       BuildProperties:
         Minify: true
         Target: es2022
-        Sourcemap: true
+        Sourcemap: false
         EntryPoints:
-          - src/lambda
+          - src/lambda.ts
         External:
           - '@aws-sdk/lib-dynamodb'
           - '@aws-sdk/client-dynamodb'
@@ -60,10 +61,6 @@ Resources:
     Properties:
       Name: TagAllBotApi
       StageName: Prod
-      # DefaultRoute:
-      #   Method: POST
-      #   ResourcePath: "/tagAllBot"
-      #   Target: !GetAtt TagAllBotFunction.Arn
 
   UserTopicGroupTable:
     Type: AWS::DynamoDB::Table

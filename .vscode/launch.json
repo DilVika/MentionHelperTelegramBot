@@ -1,0 +1,74 @@
+{
+    "configurations": [
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "MentionHelperTelegramBot:TagAllBotFunction",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "TagAllBotFunction",
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {},
+                "runtime": "nodejs20.x",
+            },
+            "api": {
+                "httpMethod": "post",
+                "path": "/tagAllBot",
+                "payload": {
+                    "path": "${workspaceFolder}/events/event.json"
+                }
+            },
+        },
+        {
+            // "debugServer": 5865,
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "AWS-SAM",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "template.yaml",
+                "logicalId": "TagAllBotFunction"
+            },
+            "api": {
+                "httpMethod": "post",
+                "path": "/tagAllBot",
+                "payload": {
+                    "path": "${workspaceFolder}/event.json"
+                }
+            },
+            "sam": {
+                "localArguments": [
+                    // "--port",
+                    // "3000",
+                    "--debug",
+                    // "--debugger-path",
+                    // "/tmp",
+                    // "--debug-function",
+                    // "TagAllBotFunction",
+                    // "--debug-port",
+                    // "60000",
+                    "--warm-containers",
+                    "EAGER",
+                    // "--container-host-interface",
+                    // "0.0.0.0",
+                    // "--container-host",
+                    // "host.docker.internal"
+                ]
+            },
+            "aws": {
+                "region": "eu-west-2"
+            },
+            // "lambda": {
+            //     "pathMappings": [
+            //         {
+            //             "localRoot": "${workspaceFolder}/.aws-samzzz/build/TagAllBotFunction",
+            //             "remoteRoot": "/var/task",
+            //         }
+            //     ],
+            // }
+        },
+    ]
+}
