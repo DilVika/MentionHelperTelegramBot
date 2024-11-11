@@ -16,10 +16,13 @@ export const WRONG_CHAT_TYPE_MSG =
 
 // DynamoDB
 export const REJECT_USER_ID = -1
-export const DYNAMODB_TABLE = 'UserTopicGroup'
+export const DYNAMODB_TABLE = 'UserTopicGroupTable'
 export const DEFAULT_TOPIC_NAME = 'general'
 
 // Regex
 export const DUPLICATE_SPACE_REGEX = /\s\s+/g
 export const SINGLE_SPACE_STR = ' '
 export const ANY_COMMAND_REGEX = /\/\S+/
+
+// Secret
+export const TELE_SECRET_HEADER_KEY = 'x-telegram-bot-api-secret-token'

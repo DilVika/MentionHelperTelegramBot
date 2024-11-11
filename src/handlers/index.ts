@@ -1,4 +1,3 @@
-import { dizzHandler } from './commands/dizzHandler'
 import { helpHandler } from './commands/helpHandler'
 import { sendCatPicHandler } from './commands/sendCatPicHandler'
 import { tagHandler } from './commands/tagHandler'
@@ -8,7 +7,6 @@ import { sendCmdHandler } from './commands/sendCmdHandler'
 import { subscribeHandler } from './commands/subscribeHandler'
 
 export {
-  dizzHandler,
   helpHandler,
   sendCatPicHandler,
   sendRicardoGifHandler,

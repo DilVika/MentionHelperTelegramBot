@@ -12,9 +12,20 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "outDir": "dist",
+    
+    // "inlineSourceMap": true,
+    "preserveConstEnums": true,
+    "noEmit": true,
+    "esModuleInterop": true, 
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,  
+    // "sourceRoot": "./src",
+    "inlineSources": true,
+    // "rootDir": "./src",
   },
-  "include": [
-    "src/**/*.ts",
-    "lambda.ts"
-  ],
+
+  // "include": [
+  //   "src/**/*.ts",
+  //   "src/lambda.ts"
+  // ],
 }
