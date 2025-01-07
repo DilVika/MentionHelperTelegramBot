@@ -35,7 +35,7 @@
     "typescript-eslint": "^8.19.0"
   },
   "dependencies": {
-    "aws-sdk": "^2.1691.0",
+    "aws-sdk": "^2.1692.0",
     "esbuild": "^0.24.0",
     "minimist-string": "^1.0.2",
     "node-telegram-bot-api": "^0.66.0",
