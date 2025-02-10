@@ -1046,10 +1046,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/aws-lambda@npm:^8.10.145":
-  version: 8.10.145
-  resolution: "@types/aws-lambda@npm:8.10.145"
-  checksum: 10c0/22086185f975e797aa7bfc4937be328b37901b580eba88ce2c5082f99dca722984ad9d0aab8f3ce52f62251ffc1ced09cf17517b54d7c5fb669ecf1dd27dc22d
+"@types/aws-lambda@npm:^8.10.147":
+  version: 8.10.147
+  resolution: "@types/aws-lambda@npm:8.10.147"
+  checksum: 10c0/c77bcb18a935fb26f5b1164aaadf46b3d11d6c001a95c6e9f2ff72f7d9ed4e7f28075a3abf9f9585cc75510acbc29c7a6441e66727902eae1bd39ac8dc28351e
   languageName: node
   linkType: hard
 
@@ -4889,7 +4889,7 @@ __metadata:
   dependencies:
     "@eslint/eslintrc": "npm:^3.1.0"
     "@eslint/js": "npm:^9.17.0"
-    "@types/aws-lambda": "npm:^8.10.145"
+    "@types/aws-lambda": "npm:^8.10.147"
     "@types/express": "npm:^5"
     "@types/node": "npm:^22.9.0"
     "@types/node-telegram-bot-api": "npm:^0.64.7"
