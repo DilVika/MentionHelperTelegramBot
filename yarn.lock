@@ -4559,9 +4559,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless@npm:^4.6.4":
-  version: 4.6.4
-  resolution: "serverless@npm:4.6.4"
+"serverless@npm:^4.7.0":
+  version: 4.7.0
+  resolution: "serverless@npm:4.7.0"
   dependencies:
     axios: "npm:^1.7.4"
     axios-proxy-builder: "npm:^0.1.2"
@@ -4570,7 +4570,7 @@ __metadata:
   bin:
     serverless: run.js
     sls: run.js
-  checksum: 10c0/1d4dbd1eb82f36b973986ebab1e23e36e8f4999f2a6ab01bc2150a8a2b67f60003bbb32558124be226b023ed220a143ca2aa3bd5fb0cc65abdc72728df77ecff
+  checksum: 10c0/69759da3ed0c30c08f7708bcba3af9f58402721eaea371bb4178ecae884c991c3d79002119bee68740f89c74e0ff2fe75f0e1157cc21633b08041cf74b384f2e
   languageName: node
   linkType: hard
 
@@ -4908,7 +4908,7 @@ __metadata:
     nodemon: "npm:^3.1.7"
     pkgroll: "npm:^2.11.0"
     prettier: "npm:^3.5.0"
-    serverless: "npm:^4.6.4"
+    serverless: "npm:^4.7.0"
     smee-client: "npm:^2.0.4"
     tidy-url: "npm:^1.18.3"
     tsx: "npm:^4.19.2"
